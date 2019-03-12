@@ -9,25 +9,49 @@ export default class PhonesPage {
   constructor({ element }) {
     this._element = element;
 
+    this._state = {
+      phones: PhonesService.getAll(),
+      selectedPhone: null,
+    };
+
     this._render();
 
+    this._initCatalog();
+    this._initCart();
+    this._initFilter();
+  }
+
+  _initCatalog() {
     this._catalog = new PhonesCatalog({
       element: this._element.querySelector('[data-component="PhonesCatalog"]'),
-      phones: PhonesService.getAll(),
+      phones: this._state.phones,
 
       onPhoneSelected: (phoneId) => {
-        console.log(phoneId);
+        const selectedPhone = PhonesService.getById(phoneId);
+
+        this._state.selectedPhone = selectedPhone;
+
+        this._render();
+        this._initViewer();
+        this._initCart();
+        this._initFilter();
       },
     });
+  }
 
+  _initViewer() {
     this._viewer = new PhoneViewer({
       element: this._element.querySelector('[data-component="PhoneViewer"]'),
     });
+  }
 
+  _initCart() {
     this._cart = new ShoppingCart({
       element: this._element.querySelector('[data-component="ShoppingCart"]'),
     });
+  }
 
+  _initFilter() {
     this._filter = new Filter({
       element: this._element.querySelector('[data-component="Filter"]'),
     });
@@ -50,8 +74,11 @@ export default class PhonesPage {
   
         <!--Main content-->
         <div class="col-md-10">
-          <div data-component="PhonesCatalog"></div>
-          <div data-component="PhoneViewer" hidden></div>
+          ${ this._state.selectedPhone ? `
+            <div data-component="PhoneViewer"></div>
+          ` : `
+            <div data-component="PhonesCatalog"></div>
+          `}
         </div>
       </div>
     `;
