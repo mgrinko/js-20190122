@@ -1,13 +1,17 @@
 export default class PhonesCatalog {
-  constructor({ element, phones }) {
+  constructor({ element, phones, onPhoneSelected }) {
     this._element = element;
 
     this._props = {
       phones: phones,
+      onPhoneSelected: onPhoneSelected,
     };
 
     this._render();
+    this._initEventListeners();
+  }
 
+  _initEventListeners() {
     this._element.addEventListener('click', (event) => {
       const detailsLink = event.target.closest('[data-element="DetailsLink"]');
 
@@ -15,7 +19,7 @@ export default class PhonesCatalog {
         return;
       }
 
-      console.log(detailsLink.dataset.phoneId);
+      this._props.onPhoneSelected(detailsLink.dataset.phoneId);
     });
   }
 

@@ -11,20 +11,24 @@ export default class PhonesPage {
 
     this._render();
 
-    new PhonesCatalog({
+    this._catalog = new PhonesCatalog({
       element: this._element.querySelector('[data-component="PhonesCatalog"]'),
       phones: PhonesService.getAll(),
+
+      onPhoneSelected: (phoneId) => {
+        console.log(phoneId);
+      },
     });
 
-    new PhoneViewer({
+    this._viewer = new PhoneViewer({
       element: this._element.querySelector('[data-component="PhoneViewer"]'),
     });
 
-    new ShoppingCart({
+    this._cart = new ShoppingCart({
       element: this._element.querySelector('[data-component="ShoppingCart"]'),
     });
 
-    new Filter({
+    this._filter = new Filter({
       element: this._element.querySelector('[data-component="Filter"]'),
     });
   }
