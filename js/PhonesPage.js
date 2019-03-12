@@ -2,6 +2,7 @@ import PhonesCatalog from './components/PhonesCatalog.js';
 import PhoneViewer from './components/PhoneViewer.js';
 import ShoppingCart from './components/ShoppingCart.js';
 import Filter from './components/Filter.js';
+import PhonesService from './PhonesService.js';
 
 
 export default class PhonesPage {
@@ -11,19 +12,20 @@ export default class PhonesPage {
     this._render();
 
     new PhonesCatalog({
-      element: this._element.querySelector('PhonesCatalog'),
+      element: this._element.querySelector('[data-component="PhonesCatalog"]'),
+      phones: PhonesService.getAll(),
     });
 
     new PhoneViewer({
-      element: this._element.querySelector('PhoneViewer'),
+      element: this._element.querySelector('[data-component="PhoneViewer"]'),
     });
 
     new ShoppingCart({
-      element: this._element.querySelector('ShoppingCart'),
+      element: this._element.querySelector('[data-component="ShoppingCart"]'),
     });
 
     new Filter({
-      element: this._element.querySelector('Filter'),
+      element: this._element.querySelector('[data-component="Filter"]'),
     });
   }
 
@@ -34,18 +36,18 @@ export default class PhonesPage {
         <!--Sidebar-->
         <div class="col-md-2">
           <section>
-            <Filter></Filter>
+            <div data-component="Filter"></div>
           </section>
   
           <section>
-            <ShoppingCart></ShoppingCart>
+            <div data-component="ShoppingCart"></div>
           </section>
         </div>
   
         <!--Main content-->
         <div class="col-md-10">
-          <PhonesCatalog></PhonesCatalog>
-          <PhoneViewer></PhoneViewer>
+          <div data-component="PhonesCatalog"></div>
+          <div data-component="PhoneViewer" hidden></div>
         </div>
       </div>
     `;
