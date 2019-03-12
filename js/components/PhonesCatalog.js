@@ -7,6 +7,16 @@ export default class PhonesCatalog {
     };
 
     this._render();
+
+    this._element.addEventListener('click', (event) => {
+      const detailsLink = event.target.closest('[data-element="DetailsLink"]');
+
+      if (!detailsLink) {
+        return;
+      }
+
+      console.log(detailsLink.dataset.phoneId);
+    });
   }
 
   _render() {
@@ -15,7 +25,12 @@ export default class PhonesCatalog {
         ${ this._props.phones.map(phone => `
         
           <li class="thumbnail">
-            <a href="#!/phones/${phone.id}" class="thumb">
+            <a
+              data-element="DetailsLink"
+              data-phone-id="${phone.id}"
+              href="#!/phones/${phone.id}"
+              class="thumb"
+            >
               <img alt="${phone.name}" src="${phone.imageUrl}">
             </a>
   
@@ -25,7 +40,14 @@ export default class PhonesCatalog {
               </a>
             </div>
   
-            <a href="#!/phones/${phone.id}">${phone.name}</a>
+            <a
+              data-element="DetailsLink"
+              data-phone-id="${phone.id}"
+              href="#!/phones/${phone.id}"
+            >
+              ${phone.name}
+            </a>
+            
             <p>${phone.snippet}</p>
           </li>
         
