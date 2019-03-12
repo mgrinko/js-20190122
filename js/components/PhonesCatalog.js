@@ -11,6 +11,10 @@ export default class PhonesCatalog {
     this._initEventListeners();
   }
 
+  hide() {
+    this._element.hidden = true;
+  }
+
   _initEventListeners() {
     this._element.addEventListener('click', (event) => {
       const detailsLink = event.target.closest('[data-element="DetailsLink"]');
