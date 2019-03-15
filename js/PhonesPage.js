@@ -24,6 +24,8 @@ export default class PhonesPage {
     this._initViewer();
     this._initCart();
     this._initFilter();
+
+    console.log(this._catalog);
   }
 
   _initCatalog() {

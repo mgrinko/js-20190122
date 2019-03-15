@@ -1,14 +1,6 @@
-export default class PhonesCatalog {
-  constructor({ element, phones, onPhoneSelected }) {
+class Component {
+  constructor({ element }) {
     this._element = element;
-
-    this._props = {
-      phones: phones,
-      onPhoneSelected: onPhoneSelected,
-    };
-
-    this._render();
-    this._initEventListeners();
   }
 
   show() {
@@ -17,6 +9,20 @@ export default class PhonesCatalog {
 
   hide() {
     this._element.hidden = true;
+  }
+}
+
+export default class PhonesCatalog extends Component {
+  constructor({ element, phones, onPhoneSelected }) {
+    super({ element });
+
+    this._props = {
+      phones: phones,
+      onPhoneSelected: onPhoneSelected,
+    };
+
+    this._render();
+    this._initEventListeners();
   }
 
   _initEventListeners() {
@@ -68,3 +74,7 @@ export default class PhonesCatalog {
     `;
   }
 }
+
+
+
+
