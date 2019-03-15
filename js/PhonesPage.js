@@ -6,12 +6,8 @@ import PhonesService from './PhonesService.js';
 import Component from './component.js';
 
 export default class PhonesPage extends Component {
-  constructor({ element, title }) {
+  constructor({ element }) {
     super({ element });
-
-    this._props = {
-      title: title,
-    };
 
     this._state = {
       phones: PhonesService.getAll(),
@@ -19,19 +15,6 @@ export default class PhonesPage extends Component {
     };
 
     this._render();
-
-    this._initCatalog();
-    this._initViewer();
-    this._initCart();
-    this._initFilter();
-
-    this._cart.add(1);
-    this._cart.add(1);
-    this._cart.add(1);
-    this._cart.add(1);
-    this._cart.add(1);
-    this._cart.add(1);
-    this._cart.add(1);
   }
 
   _initCatalog() {
@@ -40,11 +23,9 @@ export default class PhonesPage extends Component {
       phones: this._state.phones,
 
       onPhoneSelected: (phoneId) => {
-        const selectedPhone = PhonesService.getById(phoneId);
-
-        this._catalog.hide();
-        this._viewer.setProps({ phone: selectedPhone });
-        this._viewer.show();
+        this._setState({
+          selectedPhone: PhonesService.getById(phoneId),
+        });
       },
 
       onAdd: (phoneId) => {
@@ -58,8 +39,7 @@ export default class PhonesPage extends Component {
       element: this._element.querySelector('[data-component="PhoneViewer"]'),
 
       onBack: () => {
-        this._catalog.show();
-        this._viewer.hide();
+        this._setState({ selectedPhone: null });
       }
     });
 
@@ -76,6 +56,18 @@ export default class PhonesPage extends Component {
     this._filter = new Filter({
       element: this._element.querySelector('[data-component="Filter"]'),
     });
+  }
+
+  _updateView() {
+    this._viewer.setProps({ phone: this._state.selectedPhone });
+
+    if (this._state.selectedPhone) {
+      this._catalog.hide();
+      this._viewer.show();
+    } else {
+      this._catalog.show();
+      this._viewer.hide();
+    }
   }
 
   _render() {
@@ -100,5 +92,10 @@ export default class PhonesPage extends Component {
         </div>
       </div>
     `;
+
+    this._initCatalog();
+    this._initViewer();
+    this._initCart();
+    this._initFilter();
   }
 }
