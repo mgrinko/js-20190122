@@ -1,12 +1,13 @@
 import Component from '../component.js';
 
 export default class PhonesCatalog extends Component {
-  constructor({ element, phones, onPhoneSelected }) {
+  constructor({ element, phones, onPhoneSelected, onAdd }) {
     super({ element });
 
     this._props = {
       phones: phones,
       onPhoneSelected: onPhoneSelected,
+      onAdd: onAdd,
     };
 
     this._render();
@@ -15,13 +16,23 @@ export default class PhonesCatalog extends Component {
 
   _initEventListeners() {
     this._element.addEventListener('click', (event) => {
-      const detailsLink = event.target.closest('[data-element="DetailsLink"]');
+      const detailsLink = event.target.closest('[data-element="details-link"]');
 
       if (!detailsLink) {
         return;
       }
 
       this._props.onPhoneSelected(detailsLink.dataset.phoneId);
+    });
+
+    this._element.addEventListener('click', (event) => {
+      const addButton = event.target.closest('[data-element="add-button"]');
+
+      if (!addButton) {
+        return;
+      }
+
+      this._props.onAdd(addButton.dataset.phoneId);
     });
   }
 
@@ -32,7 +43,7 @@ export default class PhonesCatalog extends Component {
         
           <li class="thumbnail">
             <a
-              data-element="DetailsLink"
+              data-element="details-link"
               data-phone-id="${phone.id}"
               href="#!/phones/${phone.id}"
               class="thumb"
@@ -41,13 +52,17 @@ export default class PhonesCatalog extends Component {
             </a>
   
             <div class="phones__btn-buy-wrapper">
-              <a class="btn btn-success">
+              <a
+                data-element="add-button"
+                data-phone-id="${phone.id}"
+                class="btn btn-success"
+              >
                 Add
               </a>
             </div>
   
             <a
-              data-element="DetailsLink"
+              data-element="details-link"
               data-phone-id="${phone.id}"
               href="#!/phones/${phone.id}"
             >

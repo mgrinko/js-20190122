@@ -22,10 +22,7 @@ export default class ShoppingCart extends Component {
 
   add(itemId) {
     this._setState({
-      items: [
-        ...this._state.items,
-        itemId,
-      ],
+      items: [...this._state.items, itemId ],
     });
   }
 
@@ -39,7 +36,11 @@ export default class ShoppingCart extends Component {
         <p>Shopping Cart</p>
         <ul>
           ${ this._state.items.map(item => `
-            <li>${item}</li>
+            <li>
+              <span>${item}</span>
+              <button>X</button>
+            </li>
+            
           `).join('')}
         </ul>
       </div>
