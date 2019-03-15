@@ -15,24 +15,28 @@ export default class PhonesCatalog extends Component {
   }
 
   _initEventListeners() {
-    this._element.addEventListener('click', (event) => {
-      const detailsLink = event.target.closest('[data-element="details-link"]');
-
-      if (!detailsLink) {
-        return;
-      }
-
+    this.on('click', 'add-button', (event) => {
+      const detailsLink = event.delegateTarget;
       this._props.onPhoneSelected(detailsLink.dataset.phoneId);
     });
 
-    this._element.addEventListener('click', (event) => {
-      const addButton = event.target.closest('[data-element="add-button"]');
+    this.on('click', 'add-button', (event) => {
+      const addButton = event.delegateTarget;
+      this._props.onAdd(addButton.dataset.phoneId);
+    });
+  }
 
-      if (!addButton) {
+  on(eventName, elementName, callback) {
+    this._element.addEventListener(eventName, (event) => {
+      const delegateTarget = event.target.closest(`[data-element="${elementName}"]`);
+
+      if (!delegateTarget) {
         return;
       }
 
-      this._props.onAdd(addButton.dataset.phoneId);
+      event.delegateTarget = delegateTarget;
+
+      callback(event);
     });
   }
 
