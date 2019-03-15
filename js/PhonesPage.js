@@ -6,8 +6,12 @@ import PhonesService from './PhonesService.js';
 
 
 export default class PhonesPage {
-  constructor({ element }) {
+  constructor({ element, title }) {
     this._element = element;
+
+    this._props = {
+      title: title,
+    };
 
     this._state = {
       phones: PhonesService.getAll(),
@@ -39,6 +43,11 @@ export default class PhonesPage {
   _initViewer() {
     this._viewer = new PhoneViewer({
       element: this._element.querySelector('[data-component="PhoneViewer"]'),
+
+      onBack: () => {
+        this._catalog.show();
+        this._viewer.hide();
+      }
     });
   }
 
