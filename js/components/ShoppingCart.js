@@ -11,8 +11,6 @@ export default class ShoppingCart extends Component {
     this._render();
   }
 
-
-
   add(itemId) {
     this._setState({
       items: [...this._state.items, itemId ],

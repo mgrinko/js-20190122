@@ -40,7 +40,11 @@ export default class PhonesPage extends Component {
 
       onBack: () => {
         this._setState({ selectedPhone: null });
-      }
+      },
+
+      onAdd: (phoneId) => {
+        this._cart.add(phoneId);
+      },
     });
 
     this._viewer.hide();
