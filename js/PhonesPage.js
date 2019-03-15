@@ -3,11 +3,11 @@ import PhoneViewer from './components/PhoneViewer.js';
 import ShoppingCart from './components/ShoppingCart.js';
 import Filter from './components/Filter.js';
 import PhonesService from './PhonesService.js';
+import Component from './component.js';
 
-
-export default class PhonesPage {
+export default class PhonesPage extends Component {
   constructor({ element, title }) {
-    this._element = element;
+    super({ element });
 
     this._props = {
       title: title,
@@ -51,6 +51,8 @@ export default class PhonesPage {
         this._viewer.hide();
       }
     });
+
+    this._viewer.hide();
   }
 
   _initCart() {
@@ -83,7 +85,7 @@ export default class PhonesPage {
         <!--Main content-->
         <div class="col-md-10">
           <div data-component="PhonesCatalog"></div>
-          <div data-component="PhoneViewer" hidden></div>
+          <div data-component="PhoneViewer"></div>
         </div>
       </div>
     `;
