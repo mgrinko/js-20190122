@@ -25,7 +25,13 @@ export default class PhonesPage extends Component {
     this._initCart();
     this._initFilter();
 
-    console.log(this._catalog);
+    this._cart.add(1);
+    this._cart.add(1);
+    this._cart.add(1);
+    this._cart.add(1);
+    this._cart.add(1);
+    this._cart.add(1);
+    this._cart.add(1);
   }
 
   _initCatalog() {
@@ -38,6 +44,10 @@ export default class PhonesPage extends Component {
 
         this._catalog.hide();
         this._viewer.show(selectedPhone);
+      },
+
+      onAdd: (phoneId) => {
+        this._cart.add(phoneId);
       },
     });
   }
