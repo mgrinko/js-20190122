@@ -11,14 +11,7 @@ export default class ShoppingCart extends Component {
     this._render();
   }
 
-  _setState(partial) {
-    this._state = {
-      ...this._state,
-      ...partial,
-    };
 
-    this._updateView();
-  }
 
   add(itemId) {
     this._setState({

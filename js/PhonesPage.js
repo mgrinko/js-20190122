@@ -43,7 +43,8 @@ export default class PhonesPage extends Component {
         const selectedPhone = PhonesService.getById(phoneId);
 
         this._catalog.hide();
-        this._viewer.show(selectedPhone);
+        this._viewer.setProps({ phone: selectedPhone });
+        this._viewer.show();
       },
 
       onAdd: (phoneId) => {
