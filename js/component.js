@@ -10,13 +10,19 @@ export default class Component {
   _initComponent(componentConstructor, props) {
     const name = componentConstructor.name;
     const element = this._element.querySelector(`[data-component="${name}"]`);
+    const currentInstance = this._components[name];
 
     if (!element) {
       this._components[name] = null;
       return;
     }
 
-    this._components[name] = new componentConstructor(element, props);
+    if (currentInstance) {
+      element.parentNode.replaceChild(currentInstance._element, element);
+      currentInstance.setProps(props);
+    } else {
+      this._components[name] = new componentConstructor(element, props);
+    }
   }
 
   on(eventName, elementName, callback) {
