@@ -12,7 +12,7 @@ export default class PhonesPage extends Component {
     super(element, props);
 
     this._state = {
-      phones: PhonesService.getAll(),
+      phones: [],
       selectedPhone: null,
       items: [],
     };
@@ -23,29 +23,14 @@ export default class PhonesPage extends Component {
     this.removeItem = this.removeItem.bind(this);
 
     this._render();
-  }
 
-  setSelectedPhone(phoneId) {
-    this._setState({
-      selectedPhone: PhonesService.getById(phoneId),
-    });
-  };
-
-  clearSelectedPhone() {
-    this._setState({ selectedPhone: null });
-  }
-
-  addItem(phoneId) {
-    this._setState({
-      items: [ ...this._state.items, phoneId],
-    });
-  }
-
-  removeItem(itemToRemove) {
-    this._setState({
-      items: this._state.items.filter(
-        item => item !== itemToRemove
-      ),
+    PhonesService.getAll({
+      onSuccess: (phones) => {
+        this._setState({ phones: phones })
+      },
+      onError: (errorMessage) => {
+        console.error(errorMessage);
+      }
     });
   }
 
@@ -93,5 +78,35 @@ export default class PhonesPage extends Component {
     });
 
     this._initComponent(Filter);
+  }
+
+  setSelectedPhone(phoneId) {
+    PhonesService.getById({
+      phoneId: phoneId,
+
+      onSuccess: (phoneDetails) => {
+        this._setState({
+          selectedPhone: phoneDetails,
+        });
+      }
+    });
+  };
+
+  clearSelectedPhone() {
+    this._setState({ selectedPhone: null });
+  }
+
+  addItem(phoneId) {
+    this._setState({
+      items: [ ...this._state.items, phoneId],
+    });
+  }
+
+  removeItem(itemToRemove) {
+    this._setState({
+      items: this._state.items.filter(
+        item => item !== itemToRemove
+      ),
+    });
   }
 }
