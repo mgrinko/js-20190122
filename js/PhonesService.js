@@ -1,4 +1,5 @@
-
+// const API_URL = 'https://mgrinko.github.io/js-20190122/api';
+const API_URL = 'http://127.0.0.1:8080/api';
 
 const PhonesService = {
   getAll({ onSuccess, onError }) {
@@ -10,7 +11,7 @@ const PhonesService = {
   },
 
   _sendRequest(url, onSuccess, onError = () => {}) {
-    const fullUrl = `https://mgrinko.github.io/js-20190122/api${url}.json`;
+    const fullUrl = `${API_URL}${url}.json`;
     const xhr = new XMLHttpRequest();
     xhr.open('GET', fullUrl, true);
     xhr.send();
