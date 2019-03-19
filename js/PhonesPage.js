@@ -12,6 +12,7 @@ export default class PhonesPage extends Component {
     super(element, props);
 
     this._state = {
+      isLoaded: false,
       phones: [],
       selectedPhone: null,
       items: [],
@@ -26,7 +27,10 @@ export default class PhonesPage extends Component {
 
     PhonesService.getAll({
       onSuccess: (phones) => {
-        this._setState({ phones: phones })
+        this._setState({
+          phones: phones,
+          isLoaded: true,
+        })
       },
       onError: (errorMessage) => {
         console.error(errorMessage);
@@ -54,7 +58,11 @@ export default class PhonesPage extends Component {
           ${ this._state.selectedPhone ? `
             <div data-component="PhoneViewer"></div>
           ` : `
-            <div data-component="PhonesCatalog"></div>
+            ${ this._state.isLoaded ? `
+              <div data-component="PhonesCatalog"></div>
+            ` : `
+              <p>Loading ...</p>
+            `}
           `}
         </div>
       </div>
