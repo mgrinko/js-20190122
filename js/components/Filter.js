@@ -4,6 +4,16 @@ export default class Filter extends Component {
   constructor(element, props) {
     super(element, props);
 
+    this._state = {
+      value: '',
+    };
+
+    this.on('change', 'query', ({ delegateTarget }) => {
+      this._setState({
+        value: delegateTarget.value,
+      });
+    });
+
     this._render();
   }
 
@@ -12,7 +22,10 @@ export default class Filter extends Component {
       <div>
         <p>
           Search:
-          <input>
+          <input
+            data-element="query"
+            value="${this._state.value}"
+          >
         </p>
 
         <p>
