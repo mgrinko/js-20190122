@@ -1,17 +1,12 @@
 import Component from '../component.js';
 
 export default class PhonesCatalog extends Component {
-  constructor({ element, phones, onPhoneSelected, onAdd }) {
-    super({ element });
+  constructor(element, props) {
+    super(element, props);
 
-    this._props = {
-      phones: phones,
-      onPhoneSelected: onPhoneSelected,
-      onAdd: onAdd,
-    };
+    this._initEventListeners();
 
     this._render();
-    this._initEventListeners();
   }
 
   _initEventListeners() {

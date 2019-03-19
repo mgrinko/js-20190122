@@ -1,16 +1,9 @@
 export default class Component {
-  constructor({ element }) {
+  constructor(element, props) {
     this._element = element;
+    this._props = props;
     this._state = {};
-    this._props = {};
-  }
-
-  show() {
-    this._element.style.display = '';
-  }
-
-  hide() {
-    this._element.style.display = 'none';
+    this._components = {};
   }
 
   on(eventName, elementName, callback) {
@@ -33,7 +26,7 @@ export default class Component {
       ...partial,
     };
 
-    this._updateView();
+    this._render();
   }
 
   _setState(partial) {
@@ -42,6 +35,28 @@ export default class Component {
       ...partial,
     };
 
-    this._updateView();
+    this._render();
+  }
+
+  getElement() {
+    return this._element;
+  }
+
+  _initComponent(constructor, props = {}) {
+    const name = constructor.name;
+    const currentInstance = this._components[name];
+    const element = this._element.querySelector(`[data-component="${name}"]`);
+
+    if (!element) {
+      this._components[name] = null;
+      return;
+    }
+
+    if (currentInstance) {
+      element.parentNode.replaceChild(currentInstance.getElement(), element);
+      currentInstance.setProps(props);
+    } else {
+      this._components[name] = new constructor(element, props);
+    }
   }
 }
