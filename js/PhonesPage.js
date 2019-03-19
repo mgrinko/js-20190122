@@ -14,9 +14,39 @@ export default class PhonesPage extends Component {
     this._state = {
       phones: PhonesService.getAll(),
       selectedPhone: null,
+      items: [],
     };
 
+    this.setSelectedPhone = this.setSelectedPhone.bind(this);
+    this.clearSelectedPhone = this.clearSelectedPhone.bind(this);
+    this.addItem = this.addItem.bind(this);
+    this.removeItem = this.removeItem.bind(this);
+
     this._render();
+  }
+
+  setSelectedPhone(phoneId) {
+    this._setState({
+      selectedPhone: PhonesService.getById(phoneId),
+    });
+  };
+
+  clearSelectedPhone() {
+    this._setState({ selectedPhone: null });
+  }
+
+  addItem(phoneId) {
+    this._setState({
+      items: [ ...this._state.items, phoneId],
+    });
+  }
+
+  removeItem(itemToRemove) {
+    this._setState({
+      items: this._state.items.filter(
+        item => item !== itemToRemove
+      ),
+    });
   }
 
   _render() {
@@ -36,37 +66,32 @@ export default class PhonesPage extends Component {
   
         <!--Main content-->
         <div class="col-md-10">
-          <div data-component="PhonesCatalog"></div>
-          <div data-component="PhoneViewer"></div>
+          ${ this._state.selectedPhone ? `
+            <div data-component="PhoneViewer"></div>
+          ` : `
+            <div data-component="PhonesCatalog"></div>
+          `}
         </div>
       </div>
     `;
 
     this._initComponent(PhonesCatalog, {
       phones: this._state.phones,
-
-      onPhoneSelected: (phoneId) => {
-        this._setState({
-          selectedPhone: PhonesService.getById(phoneId),
-        });
-      },
-
-      onAdd: (phoneId) => {
-        this._cart.add(phoneId);
-      },
+      onPhoneSelected: this.setSelectedPhone,
+      onAdd: this.addItem,
     });
 
     this._initComponent(PhoneViewer, {
-      onBack: () => {
-        this._setState({ selectedPhone: null });
-      },
-
-      onAdd: (phoneId) => {
-        this._cart.add(phoneId);
-      },
+      phone: this._state.selectedPhone,
+      onBack: this.clearSelectedPhone,
+      onAdd: this.addItem,
     });
 
-    this._initComponent(ShoppingCart);
+    this._initComponent(ShoppingCart, {
+      items: this._state.items,
+      onRemove: this.removeItem,
+    });
+
     this._initComponent(Filter);
   }
 }

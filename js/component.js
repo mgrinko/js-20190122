@@ -7,11 +7,16 @@ export default class Component {
     this._components = {};
   }
 
-  _initComponent(constructor, props) {
-    const name = constructor.name;
+  _initComponent(componentConstructor, props) {
+    const name = componentConstructor.name;
     const element = this._element.querySelector(`[data-component="${name}"]`);
 
-    this._components[name] = new constructor(element, props);
+    if (!element) {
+      this._components[name] = null;
+      return;
+    }
+
+    this._components[name] = new componentConstructor(element, props);
   }
 
   on(eventName, elementName, callback) {
