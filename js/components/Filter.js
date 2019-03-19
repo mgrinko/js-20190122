@@ -1,8 +1,8 @@
 import Component from '../component.js';
 
 export default class Filter extends Component {
-  constructor({ element }) {
-    super({ element });
+  constructor(element, props) {
+    super(element, props);
 
     this._render();
   }

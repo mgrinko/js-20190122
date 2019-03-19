@@ -1,23 +1,13 @@
 import Component from '../component.js';
 
 export default class ShoppingCart extends Component {
-  constructor({ element }) {
-    super({ element });
+  constructor(element, props) {
+    super(element, props);
 
     this._state = {
       items: [],
     };
 
-    this._render();
-  }
-
-  add(itemId) {
-    this._setState({
-      items: [...this._state.items, itemId ],
-    });
-  }
-
-  _updateView() {
     this._render();
   }
 
