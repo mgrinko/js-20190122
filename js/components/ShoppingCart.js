@@ -4,9 +4,9 @@ export default class ShoppingCart extends Component {
   constructor(element, props) {
     super(element, props);
 
-    this._state = {
-      items: [],
-    };
+    this.on('click', 'remove-button', ({ delegateTarget: removeButton }) => {
+      this._props.onRemove(removeButton.dataset.item);
+    });
 
     this._render();
   }
@@ -16,10 +16,15 @@ export default class ShoppingCart extends Component {
       <div>
         <p>Shopping Cart</p>
         <ul>
-          ${ this._state.items.map(item => `
+          ${ this._props.items.map(item => `
             <li>
               <span>${item}</span>
-              <button>X</button>
+              <button
+                data-element="remove-button"
+                data-item="${item}"
+              >
+                X
+              </button>
             </li>
             
           `).join('')}
