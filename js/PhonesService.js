@@ -13,6 +13,9 @@ const PhonesService = {
   },
 
   _sendRequest(url) {
+    return fetch(url)
+      .then(response => response.json());
+
     return new Promise((resolve, reject) => {
       const fullUrl = `${API_URL}${url}.json`;
       const xhr = new XMLHttpRequest();
