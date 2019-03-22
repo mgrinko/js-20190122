@@ -1,6 +1,13 @@
-var http = require('http');
-var static = require('node-static');
-var file = new static.Server('.');
+const http = require('http');
+const nodeStatic = require('node-static');
+const file = new nodeStatic.Server('.', {
+  cache: 0,
+  headers: {
+    'Access-Control-Allow-Origin': 'http://localhost:63342',
+    'Access-Control-Allow-Methods': 'POST, GET',
+    'Access-Control-Allow-Headers': 'Content-Type'
+  }
+});
 
 http.createServer(function(req, res) {
   file.serve(req, res);
