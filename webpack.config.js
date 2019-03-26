@@ -1,4 +1,5 @@
 const path = require('path');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   mode: 'none',
@@ -10,6 +11,11 @@ module.exports = {
 
   // watch: true,
   devtool: 'source-map',
+
+  optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin()],
+  },
 
   module: {
     rules: [
@@ -34,6 +40,7 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'public'),
     compress: true,
+    host: '127.0.0.1',
     port: 9000
   }
 };
