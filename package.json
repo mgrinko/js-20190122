@@ -4,6 +4,7 @@
   "description": "safdsadfasdfsdf",
   "main": "server.js",
   "scripts": {
+    "build": "webpack",
     "lint": "eslint ./js --fix",
     "start": "node server.js"
   },
@@ -17,9 +18,12 @@
     "url": "https://github.com/mgrinko/js-20190122/issues"
   },
   "homepage": "https://github.com/mgrinko/js-20190122#readme",
-  "dependencies": {},
+  "dependencies": {
+    "webpack": "^4.29.6"
+  },
   "devDependencies": {
     "eslint": "^5.15.3",
-    "node-static": "^0.7.11"
+    "node-static": "^0.7.11",
+    "webpack-cli": "^3.3.0"
   }
 }

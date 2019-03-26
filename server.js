@@ -1,6 +1,6 @@
 const http = require('http');
 const nodeStatic = require('node-static');
-const file = new nodeStatic.Server('.', {
+const file = new nodeStatic.Server('./public', {
   cache: 0,
   headers: {
     'Access-Control-Allow-Origin': 'http://localhost:63342',
