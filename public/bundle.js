@@ -95,7 +95,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_app_css__WEBPACK_IMPORTED_MODULE_1__);
 
 
-console.log(_app_css__WEBPACK_IMPORTED_MODULE_1___default.a);
 var appElement = document.querySelector('[data-component="App"]');
 var currentPage = new _PhonesPage_js__WEBPACK_IMPORTED_MODULE_0__["default"](appElement);
 
@@ -1786,7 +1785,7 @@ if(false) {}
 
 exports = module.exports = __webpack_require__(27)(false);
 // Module
-exports.push([module.i, "body {\n  background-color: yellowgreen;\n}\n", ""]);
+exports.push([module.i, "body {\n  background-color: red;\n}\n", ""]);
 
 
 

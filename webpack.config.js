@@ -8,7 +8,7 @@ module.exports = {
     filename: 'bundle.js'
   },
 
-  watch: true,
+  // watch: true,
   devtool: 'source-map',
 
   module: {
@@ -29,6 +29,12 @@ module.exports = {
         }
       }
     ]
+  },
+
+  devServer: {
+    contentBase: path.join(__dirname, 'public'),
+    compress: true,
+    port: 9000
   }
 };
 
