@@ -1,0 +1,23 @@
+{
+  "name": "js-20190122",
+  "version": "1.0.0",
+  "description": "safdsadfasdfsdf",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mgrinko/js-20190122.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mgrinko/js-20190122/issues"
+  },
+  "homepage": "https://github.com/mgrinko/js-20190122#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "node-static": "^0.7.11"
+  }
+}

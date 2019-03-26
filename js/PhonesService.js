@@ -1,19 +1,17 @@
-// const API_URL = 'https://mgrinko.github.io/js-20190122/api';
-const API_URL = 'http://127.0.0.1:8080/api';
+const API_URL = 'https://mgrinko.github.io/js-20190122/api';
+// const API_URL = 'http://127.0.0.1:8080/api';
 
 const PhonesService = {
-  getAll({ onSuccess, onError }) {
-    this._sendRequest('/phones')
-      .then(onSuccess, onError)
+  getAll() {
+    return this._sendRequest('/phones');
   },
 
-  getById({ phoneId, onSuccess, onError = () => {} }) {
-    this._sendRequest(`/phones/${phoneId}`)
-      .then(onSuccess, onError)
+  getById(phoneId) {
+    return this._sendRequest(`/phones/${phoneId}`);
   },
 
   async _sendRequest(url) {
-    const response = await fetch(url);
+    const response = await fetch(API_URL + url + '.json');
     const data = await response.json();
 
     return data;

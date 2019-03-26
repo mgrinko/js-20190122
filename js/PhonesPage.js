@@ -25,16 +25,16 @@ export default class PhonesPage extends Component {
 
     this._render();
 
-    PhonesService.getAll({
-      onSuccess: (phones) => {
-        this._setState({
-          phones: phones,
-          isLoaded: true,
-        })
-      },
-      onError: (errorMessage) => {
-        console.error(errorMessage);
-      }
+    this._loadPhones();
+  }
+
+  async _loadPhones() {
+    const phones = await PhonesService.getAll()
+      .catch(() => []);
+
+    this._setState({
+      phones: phones,
+      isLoaded: true,
     });
   }
 
@@ -88,15 +88,11 @@ export default class PhonesPage extends Component {
     this._initComponent(Filter);
   }
 
-  setSelectedPhone(phoneId) {
-    PhonesService.getById({
-      phoneId: phoneId,
+  async setSelectedPhone(phoneId) {
+    const phoneDetails = await PhonesService.getById(phoneId);
 
-      onSuccess: (phoneDetails) => {
-        this._setState({
-          selectedPhone: phoneDetails,
-        });
-      }
+    this._setState({
+      selectedPhone: phoneDetails,
     });
   };
 
